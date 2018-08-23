@@ -184,7 +184,9 @@ def register_service(service, appinfo):
 		print "POST", uri
 		print json.dumps(data, indent=4)
 	req = urllib2.Request(uri)
-	req.add_header('Authorization', service['access_token'])
+	token = 'bearer ' + service['access_token']
+	print "Token: ", token
+	req.add_header('Authorization', token)
 	req.add_header('Content-Type', 'application/json')
 	req.get_method = lambda : "POST"
 	try:
