@@ -57,6 +57,7 @@ def get_vcap_config():
 	global skip_ssl_validation
 	vcap_config = json.loads(os.getenv('VCAPX_CONFIG', '{}'))
 	log_level = vcap_config.get('loglevel', 1)
+	log_level = 1
 	skip_ssl_validation = vcap_config.get('skip_ssl_validation', False)
 
 # Get Application Info
@@ -114,7 +115,7 @@ def start_registrar(service, appinfo):
 	if uri is None:
 		print >> sys.stderr, "services of type service-registry must specify a uri"
 		return
-	base_uri = uri + "/eureka"
+	base_uri = uri + "/eureka/v2"
 	application_uri = base_uri + "/apps/" + appinfo['name']
 	instance_uri = application_uri + "/" + appinfo['instance']
 	service_info = {
@@ -180,11 +181,9 @@ def register_service(service, appinfo):
 			'healthCheckUrl': appinfo['hostname'] + '/health',
 		}
 	}
-	# if log_level > 1:
-		# print "POST", uri
-		# print json.dumps(data, indent=4)
-	print "POST", uri
-	print json.dumps(data, indent=4)
+	if log_level > 1:
+		print "POST", uri
+		print json.dumps(data, indent=4)
 	req = urllib2.Request(uri)
 	req.add_header('Authorization', service['access_token'])
 	req.add_header('Content-Type', 'application/json')
