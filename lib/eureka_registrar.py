@@ -57,7 +57,7 @@ def get_vcap_config():
 	global skip_ssl_validation
 	vcap_config = json.loads(os.getenv('VCAPX_CONFIG', '{}'))
 	log_level = vcap_config.get('loglevel', 1)
-	log_level = 1
+	log_level = 2
 	skip_ssl_validation = vcap_config.get('skip_ssl_validation', False)
 
 # Get Application Info
