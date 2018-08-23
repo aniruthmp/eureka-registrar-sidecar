@@ -190,6 +190,7 @@ def register_service(service, appinfo):
 	try:
 		urllib2.urlopen(req, data=json.dumps(data), **urlargs)
 	except urllib2.HTTPError as e:
+		print "Ani Error Code: ", e.code
 		if e.code != 204:
 			print >> sys.stderr, json.dumps(data, indent=4)
 			print >> sys.stderr, response.status_code
