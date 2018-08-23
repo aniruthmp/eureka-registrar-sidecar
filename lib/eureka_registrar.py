@@ -68,8 +68,11 @@ def get_vcap_config():
 def get_application_info():
 	appinfo = {}
 	vcap_application = json.loads(os.getenv('VCAP_APPLICATION', '{}'))
-	appinfo['name'] = vcap_application.get('application_name').upper()
-	if appinfo['name'] == NONE:
+	tempAppName = vcap_application.get('application_name')
+	tempAppName = tempAppName.upper()
+	print(tempAppName)
+	appinfo['name'] = tempAppName
+	if appinfo['name'] == None:
 		print >> sys.stderr, "VCAP_APPLICATION must specify application_name"
 		sys.exit(1)
 	appinfo['instance'] = os.getenv('CF_INSTANCE_INDEX')
