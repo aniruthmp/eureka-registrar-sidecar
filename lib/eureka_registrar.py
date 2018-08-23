@@ -180,7 +180,7 @@ def register_service(service, appinfo):
 			'healthCheckUrl': appinfo['hostname'] + '/health',
 		}
 	}
-	if log_level > 1:
+	# if log_level > 1:
 		print "POST", uri
 		print json.dumps(data, indent=4)
 	req = urllib2.Request(uri)
